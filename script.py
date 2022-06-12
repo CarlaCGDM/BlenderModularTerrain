@@ -51,26 +51,30 @@ def check_match(tile1,tile2,direction:tuple):
         for vert in tile1.data.vertices:
             x = round(vert.co.x,1)
             y = round(vert.co.y,2)
+            z = round(vert.co.z,2)
             if x == 0.5*X:
-                positions1.add(y) 
+                positions1.add((y,z)) 
                 
         for vert in tile2.data.vertices:
             x = round(vert.co.x,1)
             y = round(vert.co.y,2)
+            z = round(vert.co.z,2)
             if x == -0.5*X:
-                positions2.add(y)
+                positions2.add((y,z))
     else:
         for vert in tile1.data.vertices:
             x = round(vert.co.x,2)
             y = round(vert.co.y,1)
+            z = round(vert.co.z,2)
             if y == 0.5*Y:
-                positions1.add(x) 
+                positions1.add((x,z)) 
                 
         for vert in tile2.data.vertices:
             x = round(vert.co.x,2)
             y = round(vert.co.y,1)
+            z = round(vert.co.z,2)
             if y == -0.5*Y:
-                positions2.add(x)
+                positions2.add((x,z))
                 
     if positions1 == positions2:
         return True
