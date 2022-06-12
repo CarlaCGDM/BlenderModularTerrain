@@ -6,3 +6,5 @@ Implementation of the Wave Function Collapse algorithm in the BPY python API wit
 ### V.1.0
 - It's not really WFC yet but it does give you something.
 - Border detection works well at least.
+- Randomized details per-face results are a little weird.
+- Rotations and mirroring are not automated yet.
