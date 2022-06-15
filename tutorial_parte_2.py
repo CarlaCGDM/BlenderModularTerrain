@@ -124,7 +124,7 @@ def rotaciones(tileset:list):
 #                                GENERACIÓN DE CUADRÍCULA                                     #
 #                                                                                             #
 ###############################################################################################
-        
+
 import random
 
 def grid_vacio(alto,ancho):
@@ -138,7 +138,7 @@ def grid_vacio(alto,ancho):
         grid.append(fila)
             
     return grid
-            
+
 def adyacentes_vacios(grid:list,celda:tuple):
     
     direcciones = [ (0,1), (0,-1), (1,0), (-1,0) ]
@@ -155,7 +155,7 @@ def adyacentes_vacios(grid:list,celda:tuple):
                 vacios.append(siguiente)
                 
     return vacios
-            
+
 def adyacentes_ocupados(grid:list,celda:tuple):
     
     direcciones = [ (0,1), (0,-1), (1,0), (-1,0) ]
@@ -169,17 +169,15 @@ def adyacentes_ocupados(grid:list,celda:tuple):
         if siguiente[0] in range(len(grid)) and siguiente[1] in range(len(grid[0])):
             valor = grid[siguiente[0]][siguiente[1]]
             if valor != "##No_Data##":
-                ocupados.append(((-dy,-dx),valor))
+                ocupados.append(((-dy,-dx),valor)) 
                 
     return ocupados
 
-        
 ###############################################################################################
 #                                                                                             #
-#                                    PROGRAMA PRINCIPAL                                       #
+#                                     PROGRAMA PRINCIPAL                                      #
 #                                                                                             #
 ###############################################################################################
-
 
 if __name__ == "__main__":
     
@@ -199,10 +197,6 @@ if __name__ == "__main__":
 
     #generamos el indice con la informacion de adyacencia
     indice = indice_conexiones(tileset_completo)
-    
-    print(indice)
-    
-    ##################Generación:
     
     #grid vacío
     alto,ancho = (10,10)
@@ -243,11 +237,11 @@ if __name__ == "__main__":
         
         posibles = []
         
-        for cel in celdas_vecinas: # cel = ((0,1),"Base_0") | (dirección,modulo)
-            dir,cel2 = cel
-            print(dir)
-            print(cel2)m 
-            posibles.append(indice[cel2][dir])
+        # posibles = [["Esquina_270","Base_0",...],["Esquina_270"]]
+        
+        for cel in celdas_vecinas: # cel = ((0,-1),"Base_0") | (dirección,modulo)
+            dir,nombre = cel 
+            posibles.append(indice[nombre][dir])
             
         modulos_en_todos = list(set.intersection(*map(set, posibles)))
         
@@ -256,5 +250,50 @@ if __name__ == "__main__":
             modulo = random.choice(modulos_en_todos)
             grid[y][x] = modulo
         
-        print(grid)
+            #colocar una copia del modulo en el terreno
+            modulo_m = bpy.data.objects[modulo].data
+            obj = bpy.data.objects.new(modulo + '_Linked', modulo_m)
+        
+            terreno.objects.link(obj)
+            obj.location = (y,x,0)
+        
+            #añadir sus adyacentes a la cola
+            celdas_vecinas = adyacentes_vacios(grid,siguiente)
+            for cel in celdas_vecinas:
+                if cel not in cola:
+                    cola.append(cel)
+    
+    #detalles sobre el terreno
+    coll = bpy.data.collections.get("Detalles")
+    if coll != None:
+        for obj in coll.objects:
+            bpy.data.objects.remove(obj)
+        bpy.data.collections.remove(coll)
+      
+    detalles = bpy.data.collections.new('Detalles')
+    bpy.context.scene.collection.children.link(detalles)
+    
+    assets = []
+    
+    #rellenamos la lista de opciones
+    for obj in bpy.data.collections["Assets"].objects:
+        assets.append(obj)
+    
+    
+    for obj in bpy.data.collections.get('Terreno').objects:
+        obj_loc = obj.location
+        for face in obj.data.polygons:
+            loc = obj_loc + face.center
+            #si el material de la cara es el material hierba
+            if face.material_index == 0:
+                if random.randint(1,5) == 1:
+                    #añadimos un asset al azar
+                    asset = random.choice(assets).data
+                    obj = bpy.data.objects.new(asset.name + "_Linked", asset)
+                    detalles.objects.link(obj)
+                    obj.location = loc
+                    obj.rotation_euler[2] = math.radians(random.choice([0,90,180,270]))
+    
+    
+
         
