@@ -4,7 +4,7 @@ Blender addon to generate procedural terrain from a modular tileset. Supports pe
 ![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/92323990/174451516-560c75f2-d121-445f-8c9b-b18d96c7fcea.gif)
 
 ## How to use
-1. Download the ModTerrain.zip file and install, then activate the addon inside Blender.
+1. Download the ModTerrain.zip file and install, then activate the addon inside of Blender.
 2. Prepare a tileset where each tile is a 1m square object with the origin placed at the centre. Tiles that are meant to be placed next to each other must have matching geometry on that edge.
 3. Put all your tiles in a collection and write the name of the collection in the textbox.
 4. Hit the checkmark button to generate an adjacency index.
