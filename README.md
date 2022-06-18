@@ -1,7 +1,7 @@
 # ModTerrain (Alpha)
 Blender addon to generate procedural terrain from a modular tileset. Supports per-tile weight assignation to control frequency and distribution.
 
-![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/92323990/174450132-d821260f-fc2e-4591-9d4a-02a2044221ec.gif)
+![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/92323990/174451516-560c75f2-d121-445f-8c9b-b18d96c7fcea.gif)
 
 ## How to use
 1. Download the ModTerrain.zip file and install, then activate the addon inside Blender.
