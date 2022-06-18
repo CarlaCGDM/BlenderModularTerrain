@@ -1,4 +1,4 @@
-# ModTerrain (Alpha)
+# Modular Terrain Blender Addon (Alpha)
 Blender addon to generate procedural terrain from a modular tileset. Supports per-tile weight assignation to control frequency and distribution.
 
 ![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/92323990/174451516-560c75f2-d121-445f-8c9b-b18d96c7fcea.gif)
